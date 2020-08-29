@@ -15,6 +15,7 @@
   <div class="row min-vh-100 no-gutters">
     <header class="col-12 col-lg-3 bg-dark text-light d-flex flex-column p-4 p-lg-3">
       <h1 class="text-center">Taskmaster Pro Edition</h1>
+      <!-- if data-target value matches id of modal, modal will open when button clicked with bootstrap js -->
       <button id="create-task" class="btn btn-block btn-success" data-toggle="modal" data-target="#task-form-modal">Add
         Task</button>
       <button id="remove-tasks" class="btn btn-block btn-danger">Delete All Tasks</button>
@@ -23,11 +24,40 @@
         laudantium sequi fugit officiis optio deleniti asperiores rem eius laborum maxime blanditiis culpa, quis iste?
       </p>
     </header>
+    <!-- Lists Section -->
     <main class="col-12 col-lg-9">
-      <div class="m-5">
-        <h2>To Do</h2>
-        <ul id="list-toDo" class="list-group"> </ul>
+      <!-- To Do -->
+      <div class="m-5 row justify-content-around">
+        <!-- Bootstrap takes a mobile-first approach -->
+        <div class="col-12 col-md-6 col-xl-3 mb-3">
+          <div class="card">
+            <h4 class="card-header">To Do</h4>
+            <ul id="list-toDo" class="list-group"> </ul>
+          </div> 
+        </div> 
+        <!-- In Progress -->
+        <div class="col-12 col-md-6 col-xl-3 mb-3">
+          <div class="card">
+            <h4 class="card-header">In Progress</h4>
+            <ul id="list-inProgress" class="list-group"> </ul>
+          </div>
+        </div> 
+        <!-- In Review -->
+        <div class="col-12 col-md-6 col-xl-3 mb-3">
+          <div class="card">
+            <h4 class="card-header">In Review</h4>
+            <ul id="list-inReview" class="list-group"> </ul>
+          </div>    
+        </div>
+        <!-- Done -->
+        <div class="col-12 col-md-6 col-xl-3 mb-3">
+          <div class="card">
+            <h4 class="card-header">Done</h4>
+            <ul id="list-done" class="list-group"> </ul>
+          </div>  
+        </div>
       </div>
+      
     </main>
   </div>
 
@@ -46,11 +76,11 @@
           <form>
             <div class="form-group">
               <label for="modalTaskDescription">Task description</label>
-              <textarea id="modalTaskDescription" rows="3"></textarea>
+              <textarea id="modalTaskDescription" class="form-control" rows="3"></textarea>
             </div>
             <div class="form-group">
               <label for="modalDueDate">Due date</label>
-              <input type="text" id="modalDueDate" placeholder="mm/dd/yyyy" autocomplete="off" />
+              <input type="text" id="modalDueDate" class="form-control" placeholder="mm/dd/yyyy" autocomplete="off" />
             </div>
           </form>
         </div>
