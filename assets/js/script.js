@@ -149,3 +149,66 @@ $("#remove-tasks").on("click", function() {
 loadTasks();
 
 
+// make list items draggable
+$(".card .list-group").sortable({
+  connectWith: $(".card .list-group"),
+  scroll: false,
+  tolerance: "pointer",
+  helper: "clone",
+  // triggers once for all connected lists as soon as dragging starts
+  activate: function(event){
+    //console.log("activate", this);
+  },
+  // triggers once for all connected lists as soon as dragging stops
+  deactivate: function(event){
+    //console.log("deactivate", this);
+  },
+  // triggers when a dragged item enters a connected list
+  over: function(event){
+    //console.log("over", event.target);
+  },
+  // triggers when a dragged item leaves a connected list
+  out: function(event){
+    //console.log("out", event.target);
+  },
+  // triggers when the contents of a list have changes (items reordered, removed, or added)
+  update: function(event){
+    //console.log("update", this);
+    // children() returns an array of the list element's children, li elements labeled li.list-group-item
+    // array to store task data in
+    var tempArr = [];
+    // loop over current set of children in sortable list
+    $(this).children().each(function(){
+      var text = $(this).find("p").text().trim();
+      var date = $(this).find("span").text().trim();
+      //console.log(text, date);
+      // add task data to temporary array as object
+      tempArr.push({text: text, date: date});
+    });
+    //console.log(tempArr);
+    // trim down list's ID to match object property
+    var arrName = $(this).attr("id").replace("list-", "");
+    // update array on tasks object and save
+    tasks[arrName] = tempArr;
+    saveTasks();
+  }
+});
+
+// make it so tasks can be trashed by dragging into trash zone
+$("#trash").droppable({
+  accept: ".card .list-group-item",
+  tolerance: "touch",
+  drop: function(event, ui){
+    //console.log("drop");
+    // ui contains an object called draggable representing the draggable element
+    // remove the draggable element from the DOM
+    ui.draggable.remove()
+    // removing a task from a list triggers the update function, so we don't need to call saveTasks() again
+  },
+  over: function(event, ui){
+    //console.log("over");
+  },
+  out: function(event, ui){
+    //console.log("out");
+  },
+});
